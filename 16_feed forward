@@ -1,0 +1,31 @@
+# Import necessary libraries
+import numpy as np
+from keras.models import Sequential
+from keras.layers import Dense
+
+# Generate some sample data
+# Assuming we have 3 features and 2 classes
+X = np.array([[0, 0, 1], [0, 1, 1], [1, 0, 1], [1, 1, 1]])
+y = np.array([[0], [1], [1], [0]])
+
+# Create a sequential model
+model = Sequential()
+
+# Add layers to the model
+model.add(Dense(4, input_dim=3, activation='relu'))  # Input layer with 3 features, 4 units in the hidden layer, and ReLU activation
+model.add(Dense(1, activation='sigmoid'))  # Output layer with 1 unit (binary classification) and sigmoid activation
+
+# Compile the model
+model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+# Train the model
+model.fit(X, y, epochs=1000, verbose=0)
+
+# Evaluate the model
+loss, accuracy = model.evaluate(X, y)
+print(f'Accuracy: {accuracy*100:.2f}%')
+
+# Make predictions
+predictions = model.predict(X)
+print('Predictions:')
+print(predictions)
